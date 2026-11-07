@@ -16,12 +16,12 @@ const toForm = (p) => ({
   sources: p.sources.map((s) => (s.url ? `${s.name} | ${s.url}` : s.name)).join("\n"), body: p.body,
 });
 
-export default function Admin() {
+export default function Admin({ mode, edit }) {
   const session = useSession();
   if (!isLive) return <Setup />;
   if (session === undefined) return <section className="wrap page"><p className="empty">Provera prijave…</p></section>;
   if (!session) return <Login />;
-  return <Dashboard email={session.user.email} />;
+  return <Dashboard email={session.user.email} mode={mode} edit={edit} />;
 }
 
 // ---------- shown until Supabase keys are added ----------
@@ -76,23 +76,37 @@ function Login() {
 }
 
 // ---------- list of all posts ----------
-function Dashboard({ email }) {
+function Dashboard({ email, mode, edit }) {
   const [list, setList] = useState(null);
   const [err, setErr] = useState("");
   const [editing, setEditing] = useState(null); // null = list, {} = new, post = edit
   const { reload } = usePosts();
 
-  const load = () => fetchAll().then(setList).catch((e) => setErr(e.message));
-  useEffect(() => { load(); }, []);
+  const load = () => fetchAll().then((all) => { setList(all); return all; }).catch((e) => setErr(e.message));
+  useEffect(() => {
+    // Opened from the "✎ Uredi" / "+ Nova priča" shortcuts on the site
+    if (mode === "new") setEditing({});
+    load().then((all) => {
+      if (edit && all) {
+        const p = all.find((x) => x.slug === edit);
+        if (p) setEditing(p);
+      }
+    });
+  }, []);
+
+  const back = () => {
+    setEditing(null);
+    if (location.hash !== "#admin") history.replaceState(null, "", "#admin");
+  };
 
   const done = () => {
-    setEditing(null);
+    back();
     load();
     reload(); // refresh what visitors see
     window.scrollTo(0, 0);
   };
 
-  if (editing) return <Editor post={editing.id ? editing : null} onDone={done} onCancel={() => setEditing(null)} />;
+  if (editing) return <Editor post={editing.id ? editing : null} onDone={done} onCancel={back} />;
 
   const drafts = list ? list.filter((p) => !p.published).length : 0;
   return (

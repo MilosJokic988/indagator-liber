@@ -295,3 +295,14 @@ main { animation: pagein .6s var(--ease); min-height: 70vh; }
   .al-thumb { width: 64px; height: 48px; }
   .al-btns { grid-column: 1 / -1; }
 }
+
+/* owner-only shortcuts (visible only when logged in) */
+.top nav a.me { color: #c9b98a; }
+.top nav a.me:hover, .top nav a.me.on { color: #ecd9a6; border-color: #ecd9a6; }
+.owner-bar { max-width: 760px; margin: 0 auto 22px; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 12px 10px 16px; border: 1px dashed rgba(201,185,138,.55); background: rgba(201,185,138,.06); }
+.owner-bar span { font-family: var(--type); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: #c9b98a; }
+.owner-bar .btn { padding: 9px 14px; font-size: 12px; }
+@media (max-width: 1180px) and (min-width: 761px) {
+  .top nav { gap: 14px; font-size: 11px; letter-spacing: .08em; }
+  .logo-word { display: none; }
+}

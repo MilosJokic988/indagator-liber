@@ -28,7 +28,7 @@ function Shell() {
   if (route.page === "post") page = <Post slug={route.slug} />;
   else if (route.page === "category") page = <Category id={route.id} />;
   else if (route.page === "about") page = <About />;
-  else if (route.page === "admin") page = <Admin />;
+  else if (route.page === "admin") page = <Admin mode={route.mode} edit={route.edit} />;
   else page = <Home />;
 
   return (
@@ -38,7 +38,7 @@ function Shell() {
       <div className="grain" />
       <div className="vignette" />
       <Header route={route} />
-      <main key={route.page + (route.slug || route.id || "")}>{page}</main>
+      <main key={route.page + (route.slug || route.id || route.mode || route.edit || "")}>{page}</main>
       <Footer />
     </>
   );

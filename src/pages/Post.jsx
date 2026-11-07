@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { formatDate } from "../lib/posts.js";
-import { usePosts } from "../lib/data.jsx";
+import { usePosts, useSession } from "../lib/data.jsx";
 import { linkTo } from "../lib/router.js";
 import { SITE } from "../config.js";
 import { Cover, PostCard, Status, catById } from "../components/Bits.jsx";
@@ -39,6 +39,7 @@ export function Article({ post, preview = false }) {
 
 export default function Post({ slug }) {
   const { posts: POSTS, loading } = usePosts();
+  const session = useSession();
   const i = POSTS.findIndex((p) => p.slug === slug);
   const post = POSTS[i];
   const [copied, setCopied] = useState(false);
@@ -65,6 +66,12 @@ export default function Post({ slug }) {
 
   return (
     <section className="wrap page">
+      {session && (
+        <div className="owner-bar">
+          <span>Vidiš samo ti</span>
+          <a className="btn" href={linkTo.adminEdit(post.slug)}>✎ Uredi ovu priču</a>
+        </div>
+      )}
       <Article post={post} />
 
       <div className="post-actions">

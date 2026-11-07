@@ -11,6 +11,8 @@ export function parseRoute(hash) {
   if (h.startsWith("prica-")) return { page: "post", slug: h.slice(6) };
   if (h === "o-meni") return { page: "about" };
   if (h === "admin" || h === "pisi") return { page: "admin" };
+  if (h === "admin-nova") return { page: "admin", mode: "new" };
+  if (h.startsWith("admin-uredi-")) return { page: "admin", edit: h.slice(12) };
   if (h === "sve") return { page: "category", id: "sve" };
   return { page: "category", id: h };
 }
@@ -34,4 +36,6 @@ export const linkTo = {
   post: (slug) => `#prica-${slug}`,
   about: "#o-meni",
   admin: "#admin",
+  adminNew: "#admin-nova",
+  adminEdit: (slug) => `#admin-uredi-${slug}`,
 };

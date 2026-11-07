@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CATEGORIES, SITE, STATUSES } from "../config.js";
 import { linkTo } from "../lib/router.js";
 import { formatDate } from "../lib/posts.js";
+import { useSession } from "../lib/data.jsx";
 
 export const catById = (id) => CATEGORIES.find((c) => c.id === id) || CATEGORIES[0];
 
@@ -57,6 +58,7 @@ export function PostCard({ post, big = false }) {
 
 export function Header({ route }) {
   const [open, setOpen] = useState(false);
+  const session = useSession();
   const active = route.page === "category" ? route.id : route.page;
   return (
     <header className="top">
@@ -74,6 +76,12 @@ export function Header({ route }) {
           </a>
         ))}
         <a href={linkTo.about} className={active === "about" ? "on" : ""}>O meni</a>
+        {session && (
+          <>
+            <a className="me" href={linkTo.adminNew}>+ Nova priča</a>
+            <a className={"me" + (active === "admin" ? " on" : "")} href={linkTo.admin}>Admin</a>
+          </>
+        )}
         <a className="tt" href={SITE.tiktok} target="_blank" rel="noreferrer">TikTok ↗</a>
       </nav>
     </header>
