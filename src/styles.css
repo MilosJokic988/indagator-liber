@@ -4,7 +4,9 @@
   --dim: #9c9a95;
   --line: rgba(235, 233, 228, 0.16);
   --card: rgba(18, 18, 18, 0.78);
-  --serif: "Cinzel", serif;
+  /* Naslovi: Cormorant SC ima sva naša slova (Đ đ Č ć Š ž), Cinzel ih nema dobro */
+  --serif: "Cormorant SC", "Cormorant Garamond", Georgia, serif;
+  --display: "Cinzel", serif; /* samo za logo i veliki naslov na početnoj */
   --type: "Special Elite", "Courier New", monospace;
   --body: "Cormorant Garamond", Georgia, serif;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -34,8 +36,8 @@ main { animation: pagein .6s var(--ease); min-height: 70vh; }
 /* ---------- header ---------- */
 .top { position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px 28px; background: rgba(8,8,8,.72); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
 .logo { display: flex; align-items: center; gap: 12px; }
-.logo-mark { width: 34px; height: 34px; border: 1px solid var(--ink); display: grid; place-items: center; font-family: var(--serif); font-size: 14px; letter-spacing: .04em; }
-.logo-word { font-family: var(--serif); font-size: 15px; letter-spacing: .28em; }
+.logo-mark { width: 34px; height: 34px; border: 1px solid var(--ink); display: grid; place-items: center; font-family: var(--display); font-size: 14px; letter-spacing: .04em; }
+.logo-word { font-family: var(--display); font-size: 15px; letter-spacing: .28em; }
 .top nav { display: flex; gap: 22px; align-items: center; font-family: var(--type); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; }
 .top nav a { color: var(--dim); padding: 6px 0; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
 .top nav a b { font-family: var(--body); font-weight: 600; font-size: 14px; margin-right: 2px; }
@@ -54,7 +56,7 @@ main { animation: pagein .6s var(--ease); min-height: 70vh; }
 /* ---------- hero ---------- */
 .hero { min-height: 82vh; display: grid; place-items: center; text-align: center; padding: 80px 24px 60px; }
 .kick { font-family: var(--type); font-size: 12px; letter-spacing: .5em; color: var(--dim); margin-bottom: 22px; }
-.hero-title { font-family: var(--serif); font-weight: 400; font-size: clamp(46px, 10vw, 132px); line-height: .95; letter-spacing: .08em; text-shadow: 0 0 40px rgba(255,255,255,.35); }
+.hero-title { font-family: var(--display); font-weight: 400; font-size: clamp(46px, 10vw, 132px); line-height: .95; letter-spacing: .08em; text-shadow: 0 0 40px rgba(255,255,255,.35); }
 .hero-title span { display: block; opacity: 0; filter: blur(14px); transform: translateY(20px); animation: rise 1.6s var(--ease) forwards; }
 @keyframes rise { to { opacity: 1; filter: none; transform: none; } }
 .hero-tag { max-width: 560px; margin: 26px auto 0; font-size: clamp(19px, 2.4vw, 24px); font-style: italic; color: #d4d2cc; }
@@ -181,7 +183,7 @@ main { animation: pagein .6s var(--ease); min-height: 70vh; }
 /* ---------- footer ---------- */
 .foot { border-top: 1px solid var(--line); background: rgba(8,8,8,.85); }
 .foot-in { max-width: 1180px; margin: 0 auto; padding: 40px 28px 20px; display: flex; justify-content: space-between; gap: 30px; flex-wrap: wrap; }
-.foot-name { font-family: var(--serif); letter-spacing: .28em; font-size: 16px; }
+.foot-name { font-family: var(--display); letter-spacing: .28em; font-size: 16px; }
 .foot-motto { color: var(--dim); font-style: italic; }
 .foot-links { display: flex; gap: 20px; flex-wrap: wrap; font-family: var(--type); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
 .foot-links a:hover { color: var(--ink); }
